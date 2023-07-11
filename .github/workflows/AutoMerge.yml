@@ -6,10 +6,10 @@ on:
       - main
 
 env:
-        # replace "github_username" with your GitHub username
-        # replace "github.com/username/repo.git" with your GitHub repo path
-        # do NOT replace ${{secrets.GITHUB_TOKEN}}, GitHub will take care of it
-  MY_REPO: https://iceshoesss:${{secrets.GITHUB_TOKEN}}@github.com/username/repo.gi
+  MY_REPO: https://iceshoesss:${{secrets.GITHUB_TOKEN}}@github.com/iceshoesss/test.git
+  MY_BRANCH: main
+  MASTER_REPO: https://github.com/iceshoesss/test.git
+  MASTER_BRANCH: merge
 
 jobs:
   merge-c-branch:
@@ -17,17 +17,11 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Merge C branch
         run: |
+          git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
+          cd tmp
           git config --global user.email "4975214@qq.com"
           git config --global user.name "automerge"
-          git checkout main
-          echo 'this is an add' > file.txt
-          git add .
-          git commit -m 'committed by bot'
-          # git merge C
-          git push https://iceshoesss:${{ secrets.GITHUB_TOKEN }}@github.com/iceshoesss/test.git
+          git config pull.rebase false
+          git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
+          git push
