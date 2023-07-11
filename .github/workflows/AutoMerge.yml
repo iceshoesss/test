@@ -5,6 +5,12 @@ on:
     branches:
       - main
 
+env:
+        # replace "github_username" with your GitHub username
+        # replace "github.com/username/repo.git" with your GitHub repo path
+        # do NOT replace ${{secrets.GITHUB_TOKEN}}, GitHub will take care of it
+  MY_REPO: https://iceshoesss:${{secrets.GITHUB_TOKEN}}@github.com/username/repo.gi
+
 jobs:
   merge-c-branch:
     runs-on: ubuntu-latest
@@ -24,4 +30,4 @@ jobs:
           git add .
           git commit -m 'committed by bot'
           # git merge C
-          git push https://${{ secrets.PAT }}@github.com/iceshoesss/test.git
+          git push https://iceshoesss:${{ secrets.GITHUB_TOKEN }}@github.com/iceshoesss/test.git
