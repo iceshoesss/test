@@ -1,9 +1,13 @@
 name: My Workflow
 
+# on:
+#   repository_dispatch:
+#     types:
+#       - update-merge
 on:
-  repository_dispatch:
-    types:
-      - update-merge
+  push:
+    branches:
+      - main
 
 env:
   MY_REPO: https://iceshoesss:${{secrets.GITHUB_TOKEN}}@github.com/iceshoesss/test.git
