@@ -1,4 +1,4 @@
-name: Auto Merge
+name: My Workflow
 
 on:
   push:
@@ -6,25 +6,17 @@ on:
       - main
 
 jobs:
-  merge:
+  merge-c-branch:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-      with:
-        repository: iceshoesss/test # 远程仓库的URL
-        token: ${{ secrets.GITHUB_TOKEN }}  # GitHub令牌，用于访问仓库
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Merge branch merge into branch main
-      run: |
-        git fetch main
-        git merge merge
-        # 这里可以添加其他需要的操作，例如运行测试、构建等
-
-    - name: Push changes
-      run: |
-        git config --global user.name "commitbot"
-        git config --global user.email "123@qq.com"
-        git commit -m "Automatically merged branch merge into branch main"
-        git push
+      - name: Merge C branch
+        run: |
+          git checkout main
+          git merge merge
+          git push origin main
