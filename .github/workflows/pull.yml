@@ -21,10 +21,10 @@ jobs:
 
     steps:
        - run: |
-          git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
+          git clone ${{env.MASTER_REPO}} -b ${{env.MASTER_BRANCH}} tmp
           cd tmp
           git config --global user.email "4975214@qq.com"
           git config --global user.name "automerge"
           git config pull.rebase false
-          git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
+          git pull ${{env.MY_REPO}} ${{env.MY_BRANCH}}
           git push
