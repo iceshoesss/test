@@ -1,9 +1,9 @@
 name: My Workflow
 
 on:
-  push:
-    branches:
-      - main
+  repository_dispatch:
+    types:
+      - update-merge
 
 env:
   MY_REPO: https://iceshoesss:${{secrets.GITHUB_TOKEN}}@github.com/iceshoesss/test.git
@@ -25,3 +25,12 @@ jobs:
           git config pull.rebase false
           git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
           git push
+
+          - name: Trigger workflow
+          run: |
+            curl -X POST \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -d '{"event_type": "update-main"}' \
+              https://api.github.com/repos/iceshoesss/test/dispatches
+        
