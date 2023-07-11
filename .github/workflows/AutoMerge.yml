@@ -19,6 +19,6 @@ jobs:
         run: |
           git config --global user.email "4975214@qq.com"
           git config --global user.name "automerge"
-          cd main/
+          git checkout main
           git merge C
           git push origin main
