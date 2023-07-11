@@ -13,7 +13,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
-        repository: https://github.com/iceshoesss/test.git # 远程仓库的URL
+        repository: iceshoesss/test # 远程仓库的URL
         token: ${{ secrets.GITHUB_TOKEN }}  # GitHub令牌，用于访问仓库
 
     - name: Merge branch merge into branch main
