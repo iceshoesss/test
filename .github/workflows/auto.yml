@@ -20,12 +20,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
       - name: Checkout code
         run: |
-          git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
-          cd tmp
           git config --global user.email "4975214@qq.com"
           git config --global user.name "automerge"
           git config pull.rebase false
-          git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
+          git checkout main
+          git merge merge
           git push
