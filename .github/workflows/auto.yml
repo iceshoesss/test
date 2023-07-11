@@ -1,0 +1,31 @@
+name: My Workflow
+
+# on:
+#   repository_dispatch:
+#     types:
+#       - update-merge
+on:
+  push:
+    branches:
+      - merge
+
+env:
+  MY_REPO: https://iceshoesss:${{secrets.GITHUB_TOKEN}}@github.com/iceshoesss/test.git
+  MY_BRANCH: main
+  MASTER_REPO: https://github.com/iceshoesss/test.git
+  MASTER_BRANCH: merge
+
+jobs:
+  merge-c-branch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        run: |
+          git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
+          cd tmp
+          git config --global user.email "4975214@qq.com"
+          git config --global user.name "automerge"
+          git config pull.rebase false
+          git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
+          git push
